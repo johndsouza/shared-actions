@@ -23,13 +23,13 @@ runs:
 
      - name: Restore web application
        run: dotnet restore "$env:PROJECT"
-       shell: pwsh
+       shell: bash
        env:
         PROJECT: ${{ inputs.web-project }}
 
      - name: Restore test project
        run: dotnet restore "$env:PROJECT"
-       shell: pwsh
+       shell: bash
        env:
          PROJECT: ${{ inputs.test-project }}
     
