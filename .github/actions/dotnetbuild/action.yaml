@@ -22,7 +22,9 @@ runs:
         dotnet-version: ${{ inputs.dotnet-version }}
 
     - name: Restore web application
-      run: dotnet restore "${{ inputs.web-project }}"
+      run: |
+       pwd
+       dotnet restore "${{ inputs.web-project }}"
       shell: bash
 
     - name: Restore test project
