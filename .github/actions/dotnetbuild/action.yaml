@@ -1,5 +1,5 @@
-name: Dotnet CI setup 
-description:  Build Dotnet applications 
+name: Dotnet CI setup
+description: Build .NET applications
 
 inputs:
   dotnet-version:
@@ -12,26 +12,19 @@ inputs:
   test-project:
     description: Path to the test project
     required: true
-  
+
 runs:
-   using: composite
-   steps:
-     - name: Install .NET SDK
-       uses: actions/setup-dotnet@v4
-       with:
-          dotnet-version: ${{ inputs.DOTNET_VERSION }}
+  using: composite
+  steps:
+    - name: Install .NET SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ inputs.dotnet-version }}
 
-     - name: Restore web application
-       run: dotnet restore "$env:PROJECT"
-       shell: bash
-       env:
-        PROJECT: ${{ inputs.web-project }}
+    - name: Restore web application
+      run: dotnet restore "${{ inputs.web-project }}"
+      shell: bash
 
-     - name: Restore test project
-       run: dotnet restore "$env:PROJECT"
-       shell: bash
-       env:
-         PROJECT: ${{ inputs.test-project }}
-    
-
-       
+    - name: Restore test project
+      run: dotnet restore "${{ inputs.test-project }}"
+      shell: bash
