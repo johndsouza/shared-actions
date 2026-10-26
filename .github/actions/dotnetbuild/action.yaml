@@ -14,6 +14,7 @@ runs:
 
      - name: Restore web application
        run: dotnet restore $WEB_PROJECT
+       shell: bash
 
      - name: Restore test project
        run: dotnet restore $TEST_PROJECT
