@@ -1,8 +1,17 @@
 name: Dotnet CI setup 
 description:  Build Dotnet applications 
 
-env:
-  DOTNET_VERSION: '8.0.x'
+inputs:
+  dotnet-version:
+    description: .NET SDK version
+    required: false
+    default: "8.0.x"
+  web-project:
+    description: Path to the web project
+    required: true
+  test-project:
+    description: Path to the test project
+    required: true
   
 runs:
    using: composite
@@ -10,11 +19,19 @@ runs:
      - name: Install .NET SDK
        uses: actions/setup-dotnet@v4
        with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
+          dotnet-version: ${{ inputs.DOTNET_VERSION }}
 
      - name: Restore web application
-       run: dotnet restore $WEB_PROJECT
-       shell: bash
+       run: dotnet restore "$env:PROJECT"
+       shell: pwsh
+       env:
+        PROJECT: ${{ inputs.web-project }}
 
      - name: Restore test project
-       run: dotnet restore $TEST_PROJECT
+       run: dotnet restore "$env:PROJECT"
+       shell: pwsh
+       env:
+         PROJECT: ${{ inputs.test-project }}
+    
+
+       
